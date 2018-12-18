@@ -1,23 +1,72 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+
     defaultConfig {
         applicationId "com.joosung.pickme"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    dexOptions {
+        javaMaxHeapSize "5g"
+        jumboMode true
+        dexInProcess true
+        maxProcessCount 8
+        preDexLibraries true
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/rxjava.properties'
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
+    if (project.hasProperty('devBuild')) {
+        splits.abi.enable = false
+        splits.density.enable = false
+        aaptOptions.cruncherEnabled = false
+    }
+
+    flavorDimensions "default"
+    productFlavors {
+        toy {
+            dimension "default"
+            buildConfigField "String", "Setting", "\"Toy\""
+            buildConfigField "String", "API_URL", "\"https://api.unsplash.com/\""
+            buildConfigField "String", "Authorization", "\"Client-ID 8f4d9d58f02f7affb61adc61dacc19707001bde8c653c288969f7fd011cf05b1\""
         }
     }
 }

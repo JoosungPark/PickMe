@@ -1,0 +1,48 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    api "com.android.support:appcompat-v7:$android_support_version"
+    api "com.android.support:design:$android_support_version"
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation "com.android.support.test:runner:$runner_version"
+    androidTestImplementation("com.android.support.test.espresso:espresso-core:$espresso_core_version", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    api "io.reactivex.rxjava2:rxkotlin:$rx_kotlin_version"
+    api "io.reactivex.rxjava2:rxandroid:$rx_android_version"
+    api "com.jakewharton.rxbinding2:rxbinding-kotlin:$rxbinding_version"
+    api "com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:$rxbinding_version"
+    api "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:$rxbinding_version"
+    api "com.jakewharton.rxbinding2:rxbinding-design-kotlin:$rxbinding_version"
+}
