@@ -101,6 +101,9 @@ object RxUtils {
 
     fun <T1, T2, R> zip(source1: ObservableSource<T1>, source2: ObservableSource<T2>, resultSelector: (T1, T2) -> R): Observable<R> =
             Observable.zip<T1, T2, R>(source1, source2, BiFunction(resultSelector))
+
+    fun <T1, T2, R> zip(source1: SingleSource<T1>, source2: SingleSource<T2>, resultSelector: (T1, T2) -> R): Single<R>
+        = Single.zip<T1, T2, R>(source1, source2, BiFunction(resultSelector))
 }
 
 fun <T> Observable<T>.debug(name: String = "", obj: Any? = null): Observable<T> {
