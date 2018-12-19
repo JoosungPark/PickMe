@@ -103,8 +103,7 @@ class AppServer(val appShared: AppShared, private val config: AppConfig): Compos
                                 val stream = response?.body()?.charStream()
                                 stream?.apply {
                                     try {
-                                        val json = "{\"images\":${this.readText()}}"
-                                        val res: T = gson.fromJson(json, request.responseType)
+                                        val res: T = gson.fromJson(this, request.responseType)
 
                                         if (res.errorType != null && res.message != null) {
                                             subject.onError(MediaServerError(ErrorType.from(res.errorType), res.message!!))
