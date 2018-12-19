@@ -12,7 +12,7 @@ import java.util.*
 typealias MediaUrl = String
 
 interface MediaPresentable {
-    var thumbnailUrl: MediaUrl
+    fun thumbnailUrl() : MediaUrl
     var dateTime: Date
 }
 
@@ -32,8 +32,11 @@ class SharedMedia(appShared: AppShared, createPlaceHolder: Boolean, placeHolderI
     @SerializedName("height")
     var height: Int? = null
 
-    override var id: MediaUrl? = videoThumbnail ?: imageUrl ?: ""
-    override var thumbnailUrl: MediaUrl = videoThumbnail ?: imageUrl ?: ""
+    override var id: MediaUrl? = thumbnailUrl()
+
+    override fun thumbnailUrl(): MediaUrl {
+        return videoThumbnail ?: imageUrl ?: throw RuntimeException("MediaUrl is missing.")
+    }
 
     init {
         if (createPlaceHolder) {
@@ -58,7 +61,7 @@ class AppSharedMedia(sm: SharedMedia, override val appShared: AppShared) : AppOb
             isPlaceHolder.set(true)
         }
 
-        url.set(sm.thumbnailUrl)
+        url.set(sm.thumbnailUrl())
         dateTime.set(sm.dateTime.time)
 
         sm.width?.also { width.set(it) }
