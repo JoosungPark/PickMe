@@ -10,8 +10,6 @@ import com.joosung.pickme.http.model.SharedMedia
 import java.lang.reflect.Type
 import java.net.URLEncoder
 
-typealias ImageId = String
-
 class GetImageRequest(query: String, page: Int = 1, size: Int = 15) : AppCommonRequest<GetImageResponse>() {
     override val responseType: Type get() = object : TypeToken<GetImageResponse>() {}.type
     override val method: HTTPMethod get() = HTTPMethod.get
