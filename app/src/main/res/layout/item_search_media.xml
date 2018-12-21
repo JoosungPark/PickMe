@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="image"
+            type="com.joosung.pickme.http.model.AppSharedMedia"/>
+
+        <variable
+            name="viewModel"
+            type="com.joosung.pickme.ui.search.SearchViewModel"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:onClick="@{() -> viewModel.tapMedia(image.url)}"
+        android:onLongClick="@{() -> viewModel.longTapMedia()}"
+        android:scaleType="centerCrop">
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/checked"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:background="@drawable/check_box"
+            android:button="@android:color/transparent"
+            android:checked="@{image.starred}"
+            android:clickable="false"
+            android:duplicateParentState="true"
+            android:focusable="false"
+            android:visibility='@{safeUnbox(viewModel.isEdit) ? View.VISIBLE : View.GONE , default="gone"}'
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible"/>
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/media"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:clickable="false"
+            android:duplicateParentState="true"
+            android:focusable="false"
+            android:scaleType="centerCrop"
+            app:imageHeight="@{image.height}"
+            app:imageUrl="@{image.url}"
+            app:imageWidth="@{image.width}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/checked"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_height="150dp"/>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
