@@ -15,7 +15,7 @@ import java.util.HashMap
 interface AppVariable
 
 interface AppJsonObject {
-    val id: String?
+    fun id(): String
 }
 
 interface AppObject<in JsonObjectType : AppJsonObject> {
@@ -42,15 +42,15 @@ object AppObjectFactory {
     }
 }
 
-class VarDict<in JsonObjectType: AppJsonObject, V: AppObject<JsonObjectType>>(val placeHolderFactory: (String) -> V) :
-    AppVariable {
+class VarDict<in JsonObjectType : AppJsonObject, V : AppObject<JsonObjectType>>(val placeHolderFactory: (String) -> V) :
+        AppVariable {
     private val _data = Variable<HashMap<String, V>>(hashMapOf())
 
     fun observe(key: String): Observable<V> {
         return _data.asObservable()
-            .map { Nullable(it[key]) }
-            .filterNotNull()
-            .take(1)
+                .map { Nullable(it[key]) }
+                .filterNotNull()
+                .take(1)
     }
 
     fun update(dict: Map<String, JsonObjectType>, appShared: AppShared) {
@@ -58,28 +58,24 @@ class VarDict<in JsonObjectType: AppJsonObject, V: AppObject<JsonObjectType>>(va
     }
 
     fun update(element: JsonObjectType, appShared: AppShared) {
-        val id = element.id
-        if (id != null) {
-            update(mapOf(Pair(id, element)), appShared)
-        }
+        val id = element.id()
+        update(mapOf(Pair(id, element)), appShared)
     }
 
     fun update(arr: Iterable<JsonObjectType>, appShared: AppShared) {
         for (d in arr) {
-            val id = d.id
-            if (id != null) {
-                @Suppress("UNCHECKED_CAST")
-                val v = _data.get()[id]
-                if (v != null) {
-                    LogUtil.i(Tag.AppObjectCreation, "Updating existing [${d.javaClass.name}] $id")
-                    v.update(d)
-                } else {
-                    LogUtil.i(Tag.AppObjectCreation, "Creating new [${d.javaClass.name}] $id")
-                    val peepObj = AppObjectFactory.convertFrom(d as AppJsonObject, appShared)
-                    if (peepObj is AppObject<JsonObjectType>) {
-                        @Suppress("UNCHECKED_CAST")
-                        _data.get()[id] = peepObj as V
-                    }
+            val id = d.id()
+            @Suppress("UNCHECKED_CAST")
+            val v = _data.get()[id]
+            if (v != null) {
+                LogUtil.i(Tag.AppObjectCreation, "Updating existing [${d.javaClass.name}] $id")
+                v.update(d)
+            } else {
+                LogUtil.i(Tag.AppObjectCreation, "Creating new [${d.javaClass.name}] $id")
+                val peepObj = AppObjectFactory.convertFrom(d as AppJsonObject, appShared)
+                if (peepObj is AppObject<JsonObjectType>) {
+                    @Suppress("UNCHECKED_CAST")
+                    _data.get()[id] = peepObj as V
                 }
             }
 
