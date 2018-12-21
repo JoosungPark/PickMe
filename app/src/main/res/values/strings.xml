@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">PickMe</string>
+
+    <string name="Finder_Hint">미디어 검색</string>
+    <string name="Error_Empty_Keyword">검색하려는 키워드가 없습니다.</string>
+
+    <string name="Button_Save">+</string>
+    <string name="Button_Cancel">X</string>
+
+    <string name="Search_Description">키워드를 입력하고 검색하세요!</string>
+
+    <string name="Home_Tab_Search_Result">검색 결과</string>
+    <string name="Home_Tab_Starred">내 보관함</string>
 </resources>
