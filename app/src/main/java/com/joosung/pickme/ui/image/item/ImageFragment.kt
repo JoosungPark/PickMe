@@ -6,18 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.joosung.pickme.common.BaseFragment
-import com.joosung.pickme.http.api.ImageId
 import com.joosung.library.rx.RxViewModel
 import com.joosung.pickme.R
 import com.joosung.pickme.common.MediaRepository
 import com.joosung.pickme.databinding.FragmentImageBinding
 import com.joosung.pickme.http.model.AppSharedMedia
+import com.joosung.pickme.http.model.MediaUrl
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 class ImageFragment : BaseFragment() {
     private var binding: FragmentImageBinding? = null
-    private val id: ImageId by lazy { arguments?.getString(kImageId) ?: "" }
+    private val id: MediaUrl by lazy { arguments?.getString(kImageId) ?: "" }
     private val viewModel: ImageViewModel by viewModel { parametersOf(id) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -34,7 +34,7 @@ class ImageFragment : BaseFragment() {
     companion object {
         const val kImageId = "imageId"
 
-        fun newInstance(id: ImageId): ImageFragment {
+        fun newInstance(id: MediaUrl): ImageFragment {
             val fragment = ImageFragment()
 
             val argument = Bundle()
@@ -46,6 +46,6 @@ class ImageFragment : BaseFragment() {
     }
 }
 
-class ImageViewModel(id: ImageId, repo: MediaRepository) : RxViewModel() {
+class ImageViewModel(id: MediaUrl, repo: MediaRepository) : RxViewModel() {
     var image: AppSharedMedia? = repo.getMedia(id)
 }

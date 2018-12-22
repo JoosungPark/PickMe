@@ -13,6 +13,8 @@ import com.joosung.pickme.http.api.GetImageRequest
 import com.joosung.pickme.http.api.GetVideoRequest
 import com.joosung.pickme.http.model.MediaUrl
 import com.joosung.pickme.http.model.SharedMedia
+import com.joosung.pickme.ui.starred.StarredViewModelInput
+import com.joosung.pickme.ui.starred.StarredViewModelInputImpl
 import com.joosung.rxrecycleradapter.RxRecyclerAdapterChangeEvent
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -22,9 +24,9 @@ import java.util.ArrayList
 
 class SearchViewModel(
         private val input: SearchViewModelInput,
-        private val repo: MediaRepository,
+        override val repo: MediaRepository,
         private val service: MediaServerInterface
-) : RxViewModel() {
+) : RxViewModel(), MediaStarredInterface {
 
     private val mediaSource = Variable(arrayListOf<MediaUrl>())
     fun getMediaSource() = mediaSource
@@ -46,9 +48,11 @@ class SearchViewModel(
     private var page = 1
     private var latestQuery: String? = null
 
-    val isEdit = ObservableField(false)
-    private val checkedMedias = arrayListOf<MediaUrl>()
-    private val uncheckedMedias = arrayListOf<MediaUrl>()
+    override val starredMediaSource = input.starredViewModelInput.starredMediaSource
+    override val isEdit = input.starredViewModelInput.isEdit
+
+    override val checkedMedias = arrayListOf<MediaUrl>()
+    override val uncheckedMedias = arrayListOf<MediaUrl>()
 
     fun monitor() {
         launch {
@@ -160,20 +164,20 @@ class SearchViewModel(
     fun tapMedia(url: MediaUrl?) {
         isEdit.get()?.also { edit ->
             if (edit) {
-                url?.also { url ->
-                    repo.getMedia(url)?.also { media ->
-                        media.starred.get()?.also {
-                            val target = if (it) uncheckedMedias else checkedMedias
-                            target.add(url)
-                            media.starred.set(!it)
-                        }
-                    }
-                }
+                onTapEdit(url)
             } else {
                 url?.also { tapImageEvent.value = mediaSource.value.indexOf(it) }
             }
         }
     }
+}
+
+interface MediaStarredInterface {
+    val repo: MediaRepository
+    val isEdit: ObservableField<Boolean>
+    val checkedMedias : ArrayList<MediaUrl>
+    val uncheckedMedias : ArrayList<MediaUrl>
+    val starredMediaSource: Variable<ArrayList<MediaUrl>>
 
     fun longTapMedia(): Boolean {
         return if (isEdit.get() == false) {
@@ -186,6 +190,18 @@ class SearchViewModel(
         }
     }
 
+    fun onTapEdit(url: MediaUrl?) {
+        url?.also { url ->
+            repo.getMedia(url)?.also { media ->
+                media.starred.get()?.also {
+                    val target = if (it) uncheckedMedias else checkedMedias
+                    target.add(url)
+                    media.starred.set(!it)
+                }
+            }
+        }
+    }
+
     fun tapCancel() {
         checkedMedias.clear()
         uncheckedMedias.clear()
@@ -193,7 +209,12 @@ class SearchViewModel(
     }
 
     fun tapSave() {
-        // TODO: update realm db from checked/unchecked Media list.
+        val result = arrayListOf<MediaUrl>()
+
+        starredMediaSource.value.filter { uncheckedMedias.contains(it) == false }.map { result.add(it) }
+        result.addAll(checkedMedias)
+
+        starredMediaSource.value = result
 
         tapCancel()
     }
@@ -202,9 +223,14 @@ class SearchViewModel(
 interface SearchViewModelInput {
     val description: String
     val errorEmptyKeyword: String
+    val starredViewModelInput: StarredViewModelInput
 }
 
-class SearchViewModelInputImpl(context: Context) : SearchViewModelInput {
+class SearchViewModelInputImpl(
+        context: Context,
+        override val starredViewModelInput: StarredViewModelInput
+): SearchViewModelInput {
+
     override val description: String = context.getString(R.string.Search_Description)
     override val errorEmptyKeyword: String = context.getString(R.string.Error_Empty_Keyword)
 }

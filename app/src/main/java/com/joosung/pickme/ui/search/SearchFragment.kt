@@ -35,6 +35,7 @@ class SearchFragment : BaseFragment(), ErrorCatchable {
     private lateinit var adapter: RxRecyclerAdapter<SearchCellType>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search, container, false)
         return binding?.root
     }
