@@ -104,7 +104,6 @@ class SearchFragment : BaseFragment(), ErrorCatchable {
 
         viewModel.dataSourceSubject
                 .startWith(Observable.empty())
-                .debug("jei")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(adapter)
                 .addTo(disposables)
