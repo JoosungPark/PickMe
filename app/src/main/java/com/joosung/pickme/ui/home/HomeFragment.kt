@@ -23,6 +23,7 @@ class HomeFragment : BaseFragment(), ErrorCatchable {
     private val viewModel: HomeViewModel by sharedViewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         return binding?.root
     }

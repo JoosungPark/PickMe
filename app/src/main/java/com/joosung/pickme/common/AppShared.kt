@@ -4,10 +4,7 @@ import com.google.gson.GsonBuilder
 import com.joosung.pickme.http.AppServer
 import com.joosung.pickme.http.ImageRequest
 import com.joosung.pickme.http.MediaResponse
-import com.joosung.pickme.http.model.AppSharedMedia
-import com.joosung.pickme.http.model.DateDeserializer
-import com.joosung.pickme.http.model.MediaUrl
-import com.joosung.pickme.http.model.OptionalTypeAdapter
+import com.joosung.pickme.http.model.*
 import com.joosung.pickme.model.VarDict
 import io.reactivex.Observable
 import io.reactivex.observables.ConnectableObservable
@@ -32,6 +29,7 @@ class AppShared(config: AppConfig) : AppSharedInterface {
     val server = AppServer(this, config)
 
     override fun observeMedia(url: MediaUrl): Observable<AppSharedMedia> = medias.observe(url)
+
     override fun getMedia(url: MediaUrl): AppSharedMedia? = medias.getOrPlaceholder(url)
 
     override fun <T : MediaResponse> request(request: ImageRequest<T>): ConnectableObservable<ImageRequest<T>> {

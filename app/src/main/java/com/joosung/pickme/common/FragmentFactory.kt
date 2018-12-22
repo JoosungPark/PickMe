@@ -1,6 +1,6 @@
 package com.joosung.pickme.common
 
-import com.joosung.pickme.http.api.ImageId
+import com.joosung.pickme.http.model.MediaUrl
 import com.joosung.pickme.ui.home.HomeFragment
 import com.joosung.pickme.ui.image.ImagePagerFragment
 import com.joosung.pickme.ui.image.item.ImageFragment
@@ -8,7 +8,7 @@ import com.joosung.pickme.ui.image.item.ImageFragment
 sealed class FragmentBundle {
     object Home : FragmentBundle()
     data class ImagePager(val index: Int) : FragmentBundle()
-    data class Image(val id: ImageId) : FragmentBundle()
+    data class Image(val id: MediaUrl) : FragmentBundle()
 }
 
 class FragmentFactory {

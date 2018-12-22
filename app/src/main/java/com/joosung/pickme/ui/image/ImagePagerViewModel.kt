@@ -1,17 +1,17 @@
 package com.joosung.pickme.ui.image
 
 import com.joosung.pickme.common.FragmentBundle
-import com.joosung.pickme.http.api.ImageId
 import com.joosung.library.rx.RxViewModel
 import com.joosung.library.rx.Variable
 import com.joosung.library.vm.SingleLiveEvent
+import com.joosung.pickme.http.model.MediaUrl
 import com.joosung.pickme.ui.search.MediaServerInterface
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 
 class ImagePagerViewModel(
     index: Int,
-    private val imageSource: Variable<ArrayList<ImageId>>,
+    private val imageSource: Variable<ArrayList<MediaUrl>>,
     private val service: MediaServerInterface
 ) : RxViewModel() {
 
