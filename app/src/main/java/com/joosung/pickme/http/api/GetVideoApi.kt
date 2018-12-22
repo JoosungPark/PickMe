@@ -14,10 +14,14 @@ class GetVideoRequest(query: String, page: Int = 1, size: Int = 15) : AppCommonR
     override val responseType: Type get() = object : TypeToken<GetVideoResponse>() {}.type
     override val method: HTTPMethod get() = HTTPMethod.get
     override var url: String = "/v2/search/vclip?query=${URLEncoder.encode(query, "utf-8")}&page=$page&size=$size"
-    override val uniqueToken: String? get() = "${GetImageRequest::class.java.simpleName}_${url.hashCode()}"
+    override val uniqueToken: String? get() = "${GetImageRequest::class.java.simpleName}_${url.hashCode()}_${++index}"
 
     override fun processResult(shared: AppShared, data: GetVideoResponse) {
         data.processResult(shared)
+    }
+
+    companion object {
+        var index: Int =0
     }
 }
 
