@@ -6,16 +6,13 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.GenericTransitionOptions
+import com.joosung.imagelist.util.LogUtil
 import com.joosung.pickme.common.App
 import com.joosung.pickme.model.Persist
 import com.joosung.pickme.preference.ImagePreferences
 import com.joosung.library.rx.delay
 import com.joosung.pickme.R
 import com.joosung.pickme.di.GlideApp
-
-fun getDefaultColor(context: Context): Int {
-    return context.getColor(R.color.basic_divider)
-}
 
 @BindingAdapter("imageUrl", "imageWidth", "imageHeight")
 fun loadImage(view: ImageView, url: String?, width: Int?, height: Int?) {
@@ -27,14 +24,14 @@ fun loadImage(view: ImageView, url: String?, width: Int?, height: Int?) {
             .load(it)
             .transition(GenericTransitionOptions.withNoTransition())
             .centerCrop()
-            .placeholder(getDefaultColor(view.context))
-            .error(getDefaultColor(view.context))
+            .placeholder(R.color.basic_divider)
+            .error(R.color.basic_divider)
             .into(view)
     } ?: run {
         GlideApp.with(view.context)
-            .load(getDefaultColor(view.context))
-            .placeholder(getDefaultColor(view.context))
-            .error(getDefaultColor(view.context))
+            .load(R.color.basic_divider)
+            .placeholder(R.color.basic_divider)
+            .error(R.color.basic_divider)
             .into(view)
 
     }
@@ -46,8 +43,8 @@ fun loadFullPhotoImage(view: ImageView, url: String?) {
         .load(url)
         .transition(GenericTransitionOptions.withNoTransition())
         .centerCrop()
-        .placeholder(getDefaultColor(view.context))
-        .error(getDefaultColor(view.context))
+        .placeholder(R.color.basic_divider)
+        .error(R.color.basic_divider)
         .into(view)
 }
 
