@@ -274,7 +274,7 @@ class MediaServer(private val server: AppServerInterface) : MediaServerInterface
                             imageResponse.response.get()?.medias?.also { medias.addAll(it) }
                             videoResponse.response.get()?.medias?.also { medias.addAll(it) }
 
-                            medias.sortWith(Comparator { e1, e2 -> e1.dateTime.time.compareTo(e2.dateTime.time) })
+                            medias.sortWith(Comparator { e1, e2 -> e2.dateTime.time.compareTo(e1.dateTime.time) })
                             medias.forEach { list.add(it.thumbnailUrl()) }
 
                             emitter.onSuccess(list)
