@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.jakewharton.rxbinding2.support.v4.view.RxViewPager
+import com.joosung.library.rx.bindTo
 import com.joosung.pickme.R
 import com.joosung.pickme.common.BaseFragment
 import com.joosung.pickme.common.ErrorCatchable
@@ -31,10 +33,6 @@ class HomeFragment : BaseFragment(), ErrorCatchable {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding?.viewModel = viewModel
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         binding?.also { binding ->
             val searchFragment = SearchFragment.newInstance()
@@ -61,7 +59,18 @@ class HomeFragment : BaseFragment(), ErrorCatchable {
                         it.rightMargin = betweenSpace
                         it.leftMargin = betweenSpace
                     }
+
+            RxViewPager.pageSelections(binding.pager)
+                    .map { it == TabIndex.Search.ordinal }
+                    .bindTo(viewModel.isEnabled)
+                    .addTo(disposables)
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
     }
 
     enum class TabIndex {
