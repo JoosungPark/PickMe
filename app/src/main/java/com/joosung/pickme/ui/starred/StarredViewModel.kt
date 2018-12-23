@@ -5,6 +5,7 @@ import com.joosung.library.rx.RxViewModel
 import com.joosung.library.rx.Variable
 import com.joosung.library.vm.SingleLiveEvent
 import com.joosung.pickme.common.MediaRepository
+import com.joosung.pickme.common.RealmRepository
 import com.joosung.pickme.http.model.MediaUrl
 import com.joosung.pickme.ui.search.MediaStarredInterface
 import com.joosung.rxrecycleradapter.RxRecyclerAdapterChangeEvent
@@ -12,6 +13,7 @@ import io.reactivex.subjects.PublishSubject
 
 class StarredViewModel(
         input: StarredViewModelInput,
+        override val realm: RealmRepository,
         override val repo: MediaRepository
 ) : RxViewModel(), MediaStarredInterface {
 

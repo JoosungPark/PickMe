@@ -23,4 +23,9 @@ class AppConfig(private val setting: Setting) {
 
     val authorization = setting.getAuthorization()
     val serverUrl = setting.getServerUrl()
+
+    val realmDBName: String get() = "app.realm"
+    val realmSchemeVersion = 1L
+
+    val realmDeleteOnMigrate = BuildConfig.DEBUG
 }

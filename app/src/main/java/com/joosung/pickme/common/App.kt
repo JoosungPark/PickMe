@@ -7,13 +7,16 @@ import com.joosung.pickme.preference.ImagePreferences
 import com.joosung.imagelist.util.Tag
 import com.joosung.pickme.BuildConfig
 import com.joosung.pickme.di.pickMeApp
+import io.realm.Realm
 import org.koin.android.ext.android.startKoin
+import org.koin.android.ext.koin.androidApplication
 import org.koin.android.logger.AndroidLogger
 
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        Realm.init(this)
         startKoin(this, pickMeApp, logger = AndroidLogger(showDebug =  Tag.DEBUG.getValue()))
     }
 

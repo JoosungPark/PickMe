@@ -17,18 +17,20 @@ import org.koin.dsl.module.module
 
 val appModule = module {
     val appShared = AppShared(AppConfig(AppConfig.Setting.Toy))
+    val realm = "realm"
 
+    single<RealmRepository>(createOnStart = true) { appShared }
     single<AppSharedInterface>(createOnStart = true) { appShared }
     single<AppServerInterface>(createOnStart = true) { appShared }
     single<MediaRepository>(createOnStart = true) { appShared }
     single<MediaServerInterface>(createOnStart = true) { MediaServer(get()) }
-    single<StarredViewModelInput>(createOnStart = true) { StarredViewModelInputImpl(ObservableField(false), Variable(arrayListOf())) }
+    single<StarredViewModelInput>(createOnStart = true) { StarredViewModelInputImpl(ObservableField(false), Variable(ArrayList(RealmQueryBuilder(appShared.realm).queryMediaUrlList()))) }
     single<SearchViewModelInput>(createOnStart = true) { SearchViewModelInputImpl(androidApplication(), get()) }
     single<FinderViewModelInput>(createOnStart = true) { FinderViewModelImpl(androidApplication()) }
 
     viewModel { HomeViewModel() }
-    viewModel { SearchViewModel(get(), get(), get()) }
-    viewModel { StarredViewModel(get(), get()) }
+    viewModel { SearchViewModel(get(), get(), get(), get()) }
+    viewModel { StarredViewModel(get(), get(), get()) }
     viewModel { FinderViewModel(get()) }
     viewModel { (index: Int, imageIdList: Variable<ArrayList<MediaUrl>>) -> ImagePagerViewModel(index, imageIdList, get()) }
     viewModel { (id: MediaUrl) -> ImageViewModel(id, get()) }

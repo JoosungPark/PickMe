@@ -17,6 +17,7 @@ buildscript {
         runner_version = '1.0.2'
         fresco_version = '1.11.0'
         glide_version = '4.8.0'
+        realm_version = '5.7.0'
     }
 
     repositories {
@@ -29,6 +30,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
+        classpath "io.realm:realm-gradle-plugin:$realm_version"
     }
 }
 
