@@ -10,7 +10,7 @@
 
         <variable
             name="viewModel"
-            type="com.joosung.pickme.ui.search.SearchViewModel"/>
+            type="com.joosung.pickme.ui.starred.StarredViewModel"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
