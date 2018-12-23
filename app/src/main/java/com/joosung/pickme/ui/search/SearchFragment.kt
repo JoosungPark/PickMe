@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.joosung.library.rx.debug
 import com.joosung.pickme.R
 import com.joosung.pickme.common.BaseFragment
 import com.joosung.pickme.common.ErrorCatchable
