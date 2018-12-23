@@ -9,6 +9,6 @@ class ImagePreferences(private val context: Context, val name: String) : BasePre
         val imageThresholdDelta = 50
         val imageThresholdMinimum = 200
         val imageThresholdDefault = 750
-        val imageMinimumHeight = 200
+        val imageDefaultHeight = 400
     }
 }
