@@ -16,7 +16,7 @@ import com.joosung.pickme.di.GlideApp
 
 @BindingAdapter("imageUrl", "imageWidth", "imageHeight")
 fun loadImage(view: ImageView, url: String?, width: Int?, height: Int?) {
-    val height = height ?: ImagePreferences.imageMinimumHeight
+    val height = height ?: ImagePreferences.imageDefaultHeight
     delay { view.layoutParams.height = height }
 
     url?.let {
