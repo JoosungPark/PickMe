@@ -51,8 +51,8 @@ class SearchViewModel(
     override val starredMediaSource = input.starredViewModelInput.starredMediaSource
     override val isEdit = input.starredViewModelInput.isEdit
 
-    override val checkedMedias = arrayListOf<MediaUrl>()
-    override val uncheckedMedias = arrayListOf<MediaUrl>()
+    override val checkedMedias = mutableSetOf<MediaUrl>()
+    override val uncheckedMedias = mutableSetOf<MediaUrl>()
 
     fun monitor() {
         launch {
@@ -175,8 +175,8 @@ class SearchViewModel(
 interface MediaStarredInterface {
     val repo: MediaRepository
     val isEdit: ObservableField<Boolean>
-    val checkedMedias : ArrayList<MediaUrl>
-    val uncheckedMedias : ArrayList<MediaUrl>
+    val checkedMedias : MutableSet<MediaUrl>
+    val uncheckedMedias : MutableSet<MediaUrl>
     val starredMediaSource: Variable<ArrayList<MediaUrl>>
 
     fun longTapMedia(): Boolean {
@@ -194,9 +194,13 @@ interface MediaStarredInterface {
         url?.also { url ->
             repo.getMedia(url)?.also { media ->
                 media.starred.get()?.also {
-                    val target = if (it) uncheckedMedias else checkedMedias
-                    target.add(url)
-                    media.starred.set(!it)
+                    val newValue = !it
+                    val deleteTarget = if (newValue) uncheckedMedias else checkedMedias
+                    val addTarget = if (newValue) checkedMedias else uncheckedMedias
+                    deleteTarget.remove(url)
+                    addTarget.add(url)
+
+                    media.starred.set(newValue)
                 }
             }
         }

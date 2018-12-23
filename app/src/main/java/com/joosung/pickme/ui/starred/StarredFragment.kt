@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.joosung.pickme.R
 import com.joosung.pickme.common.BaseFragment
 import com.joosung.pickme.databinding.FragmentStarredBinding
+import com.joosung.pickme.extensions.withViewModel
 import com.joosung.pickme.ui.search.SearchCellType
 import com.joosung.pickme.ui.search.item.SearchDescriptionCell
 import com.joosung.pickme.ui.search.item.SearchLoadingCell
@@ -40,7 +41,10 @@ class StarredFragment : BaseFragment() {
     }
 
     private fun bindList() {
+        withViewModel({ viewModel }) { }
+
         binding?.also { binding ->
+            binding.viewModel = viewModel
             activity?.also { binding.recycler.layoutManager = LinearLayoutManager(it) }
 
             adapter = RxRecyclerAdapter(object : RxRecyclerAdapter.Delegate<StarredCellType> {

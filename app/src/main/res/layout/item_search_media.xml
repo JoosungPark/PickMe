@@ -30,7 +30,7 @@
             android:layout_height="18dp"
             android:background="@drawable/check_box"
             android:button="@android:color/transparent"
-            android:checked="@{image.starred}"
+            android:checked="@{safeUnbox(image.starred)}"
             android:clickable="false"
             android:duplicateParentState="true"
             android:focusable="false"

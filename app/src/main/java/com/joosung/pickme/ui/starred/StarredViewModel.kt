@@ -20,8 +20,8 @@ class StarredViewModel(
     val dataSourceSubject = PublishSubject.create<RxRecyclerAdapterChangeEvent<StarredCellType>>()
     val isLoading = ObservableField<Boolean>()
     override val isEdit = input.isEdit
-    override val checkedMedias = arrayListOf<MediaUrl>()
-    override val uncheckedMedias = arrayListOf<MediaUrl>()
+    override val checkedMedias = mutableSetOf<MediaUrl>()
+    override val uncheckedMedias = mutableSetOf<MediaUrl>()
 
     private val tapImageEvent = SingleLiveEvent<Int>()
     fun getTapImageEvent() = tapImageEvent
