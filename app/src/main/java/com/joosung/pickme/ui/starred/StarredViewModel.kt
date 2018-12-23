@@ -37,7 +37,7 @@ class StarredViewModel(
                             val left = repo.getMedia(e1)?.dateTime?.get()
                             val right = repo.getMedia(e2)?.dateTime?.get()
 
-                            if (left != null && right != null) left.compareTo(right) else 0
+                            if (left != null && right != null) right.compareTo(left) else 0
                         })
 
                         it
