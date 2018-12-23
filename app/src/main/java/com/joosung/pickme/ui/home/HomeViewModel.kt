@@ -10,6 +10,7 @@ class HomeViewModel : RxViewModel() {
     fun getOnRefreshEvent() = onRefreshEvent
 
     val isLoading = ObservableField(false)
+    val isEnabled = ObservableField(true)
 
     fun onRefresh() {
         isLoading.set(true)
