@@ -3,7 +3,6 @@ package com.joosung.pickme.http.model
 import android.databinding.BaseObservable
 import android.databinding.ObservableField
 import com.google.gson.annotations.SerializedName
-import com.joosung.imagelist.util.LogUtil
 import com.joosung.pickme.common.AppShared
 import com.joosung.pickme.model.AppJsonObject
 import com.joosung.pickme.model.AppObject
@@ -11,26 +10,33 @@ import java.util.*
 
 typealias MediaUrl = String
 
-interface MediaPresentable {
+interface MediaPresentable: AppJsonObject {
+    var videoThumbnail: MediaUrl?
+    var imageUrl: MediaUrl?
     fun thumbnailUrl() : MediaUrl
     var dateTime: Date
+    var width: Int?
+    var height: Int?
+    var starred: Boolean?
 }
 
-class SharedMedia(appShared: AppShared, createPlaceHolder: Boolean, placeHolderId: String) : AppJsonObject, MediaPresentable {
+class SharedMedia() : AppJsonObject, MediaPresentable {
     @SerializedName("thumbnail")
-    var videoThumbnail: MediaUrl? = null
+    override var videoThumbnail: MediaUrl? = null
 
     @SerializedName("thumbnail_url")
-    var imageUrl: MediaUrl? = null
+    override var imageUrl: MediaUrl? = null
 
     @SerializedName("datetime")
     override lateinit var dateTime: Date
 
     @SerializedName("width")
-    var width: Int? = null
+    override var width: Int? = null
 
     @SerializedName("height")
-    var height: Int? = null
+    override var height: Int? = null
+
+    override var starred: Boolean? = null
 
     override fun id(): String {
         return thumbnailUrl()
@@ -40,9 +46,18 @@ class SharedMedia(appShared: AppShared, createPlaceHolder: Boolean, placeHolderI
         return videoThumbnail ?: imageUrl ?: ""
     }
 
+    constructor(appShared: AppShared, createPlaceHolder: Boolean, placeHolderId: String): this() { }
+
+    constructor(media: MediaPresentable): this() {
+        this.videoThumbnail = media.videoThumbnail
+        this.imageUrl = media.imageUrl
+        this.dateTime = media.dateTime
+        this.width = media.width
+        this.height = media.height
+    }
 }
 
-class AppSharedMedia(sm: SharedMedia, override val appShared: AppShared) : AppObject<SharedMedia>, BaseObservable() {
+class AppSharedMedia(val sm: SharedMedia, override val appShared: AppShared) : AppObject<SharedMedia>, BaseObservable() {
     override val id: String = sm.id()
 
     val url = ObservableField<MediaUrl>()
@@ -51,7 +66,7 @@ class AppSharedMedia(sm: SharedMedia, override val appShared: AppShared) : AppOb
     val width = ObservableField<Int>()
     val height = ObservableField<Int>()
     val dateTime = ObservableField(0L)
-    val starred = ObservableField(false)
+    val starred = ObservableField<Boolean>(false)
 
     init {
         url.set(sm.thumbnailUrl())
@@ -59,6 +74,7 @@ class AppSharedMedia(sm: SharedMedia, override val appShared: AppShared) : AppOb
 
         sm.width?.also { width.set(it) }
         sm.height?.also { height.set(it) }
+        sm.starred?.also { starred.set(it) }
     }
 
     override fun update(data: SharedMedia) {
@@ -66,6 +82,7 @@ class AppSharedMedia(sm: SharedMedia, override val appShared: AppShared) : AppOb
         dateTime.set(data.dateTime.time)
         data.width?.also { width.set(it) }
         data.height?.also { height.set(it) }
+        data.starred?.also { starred.set(it) }
     }
 
     companion object {
