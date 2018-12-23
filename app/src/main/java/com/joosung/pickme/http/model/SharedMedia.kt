@@ -54,6 +54,7 @@ class SharedMedia() : AppJsonObject, MediaPresentable {
         this.dateTime = media.dateTime
         this.width = media.width
         this.height = media.height
+        this.starred = media.starred
     }
 }
 

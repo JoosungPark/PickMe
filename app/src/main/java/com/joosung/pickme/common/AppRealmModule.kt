@@ -47,7 +47,7 @@ open class AppRealmMedia : RealmObject(), MediaPresentable {
             realmMedia.dateTime = media.dateTime
             realmMedia.width = media.width
             realmMedia.height = media.height
-            realmMedia.starred = media.starred
+            realmMedia.starred = true
 
             realm.insertOrUpdate(realmMedia)
         }
