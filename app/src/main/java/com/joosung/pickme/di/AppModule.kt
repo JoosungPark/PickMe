@@ -2,8 +2,6 @@ package com.joosung.pickme.di
 
 import android.databinding.ObservableField
 import com.joosung.pickme.ui.home.HomeViewModel
-import com.joosung.pickme.ui.image.ImagePagerViewModel
-import com.joosung.pickme.ui.image.item.ImageViewModel
 import com.joosung.library.rx.Variable
 import com.joosung.pickme.common.*
 import com.joosung.pickme.http.model.MediaUrl
@@ -17,7 +15,6 @@ import org.koin.dsl.module.module
 
 val appModule = module {
     val appShared = AppShared(AppConfig(AppConfig.Setting.Toy))
-    val realm = "realm"
 
     single<RealmRepository>(createOnStart = true) { appShared }
     single<AppSharedInterface>(createOnStart = true) { appShared }
@@ -32,8 +29,6 @@ val appModule = module {
     viewModel { SearchViewModel(get(), get(), get(), get()) }
     viewModel { StarredViewModel(get(), get(), get()) }
     viewModel { FinderViewModel(get()) }
-    viewModel { (index: Int, imageIdList: Variable<ArrayList<MediaUrl>>) -> ImagePagerViewModel(index, imageIdList, get()) }
-    viewModel { (id: MediaUrl) -> ImageViewModel(id, get()) }
 }
 
 val pickMeApp = listOf(appModule)
