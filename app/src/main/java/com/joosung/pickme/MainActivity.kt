@@ -1,6 +1,6 @@
 package com.joosung.pickme
 
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import com.joosung.pickme.common.BaseActivity
 import com.joosung.pickme.common.FragmentBundle

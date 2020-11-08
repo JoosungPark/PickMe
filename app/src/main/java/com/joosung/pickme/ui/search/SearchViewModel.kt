@@ -1,7 +1,7 @@
 package com.joosung.pickme.ui.search
 
 import android.content.Context
-import android.databinding.ObservableField
+import androidx.databinding.ObservableField
 import com.joosung.library.rx.RxUtils
 import com.joosung.library.rx.RxViewModel
 import com.joosung.library.rx.Variable

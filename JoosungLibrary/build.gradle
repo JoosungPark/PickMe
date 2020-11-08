@@ -12,7 +12,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
     buildTypes {
@@ -30,11 +30,11 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    api "com.android.support:appcompat-v7:$android_support_version"
-    api "com.android.support:design:$android_support_version"
+    api 'androidx.appcompat:appcompat:1.0.0'
+    api 'com.google.android.material:material:1.0.0'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation "com.android.support.test:runner:$runner_version"
-    androidTestImplementation("com.android.support.test.espresso:espresso-core:$espresso_core_version", {
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -46,9 +46,9 @@ dependencies {
     api "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:$rxbinding_version"
     api "com.jakewharton.rxbinding2:rxbinding-design-kotlin:$rxbinding_version"
     api 'de.hdodenhof:circleimageview:2.2.0'
-    implementation "android.arch.lifecycle:extensions:$rootProject.lifecycle_version"
-    kapt "android.arch.lifecycle:compiler:$rootProject.lifecycle_version"
-    testImplementation "android.arch.core:core-testing:$rootProject.lifecycle_version"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    kapt 'androidx.lifecycle:lifecycle-compiler:2.0.0'
+    testImplementation 'androidx.arch.core:core-testing:2.0.0'
 
     api 'com.github.akarnokd:rxjava2-interop:0.11.0'
 }

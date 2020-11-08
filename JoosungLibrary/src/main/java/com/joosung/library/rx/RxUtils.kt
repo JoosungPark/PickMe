@@ -1,8 +1,8 @@
 package com.joosung.library.rx
 
 import android.annotation.SuppressLint
-import android.databinding.Observable.OnPropertyChangedCallback
-import android.databinding.ObservableField
+import androidx.databinding.Observable.OnPropertyChangedCallback
+import androidx.databinding.ObservableField
 import android.os.Looper
 import io.reactivex.*
 import io.reactivex.Observable
@@ -12,12 +12,13 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.functions.*
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
+import androidx.databinding.Observable as AndroidObservable
 
 object RxUtils {
     fun <T> toObservable(observableField: ObservableField<T>, initialData: Boolean = true): Observable<T> {
         return Flowable.create<T>({ asyncEmitter ->
             val callback = object : OnPropertyChangedCallback() {
-                override fun onPropertyChanged(dataBindingObservable: android.databinding.Observable, propertyId: Int) {
+                override fun onPropertyChanged(dataBindingObservable: AndroidObservable, propertyId: Int) {
                     if (dataBindingObservable === observableField) {
                         observableField.get()?.let {
                             asyncEmitter.onNext(observableField.get()!!)

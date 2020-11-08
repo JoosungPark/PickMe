@@ -29,7 +29,7 @@ class AppRealmMigration : RealmMigration {
                     .setNullable(AppRealmMedia.kStarred, true)
 
             }
-            version++
+            version += 1
         }
     }
 }

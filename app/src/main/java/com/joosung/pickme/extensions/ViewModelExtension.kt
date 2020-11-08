@@ -1,8 +1,8 @@
 package com.joosung.pickme.extensions
 
-import android.arch.lifecycle.*
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.*
 
 inline fun <reified T : ViewModel> AppCompatActivity.withViewModel(
         crossinline factory: () -> T,
@@ -19,7 +19,7 @@ inline fun <reified T : ViewModel> AppCompatActivity.getViewModel(crossinline fa
         override fun <U : ViewModel> create(modelClass: Class<U>): U = factory() as U
     }
 
-    return android.arch.lifecycle.ViewModelProviders.of(this, vmFactory)[T::class.java]
+    return ViewModelProviders.of(this, vmFactory)[T::class.java]
 }
 
 inline fun <reified T : ViewModel> Fragment.withViewModel(crossinline factory: () -> T, body: T.() -> Unit): T {
@@ -34,9 +34,9 @@ inline fun <reified T : ViewModel> Fragment.getViewModel(crossinline factory: ()
         override fun <U : ViewModel> create(modelClass: Class<U>): U = factory() as U
     }
 
-    return android.arch.lifecycle.ViewModelProviders.of(this, vmFactory)[T::class.java]
+    return ViewModelProviders.of(this, vmFactory)[T::class.java]
 }
 
 fun <T : Any, L : LiveData<T>> LifecycleOwner.observe(liveData: L, body: (T?) -> Unit) {
-    liveData.observe(this, android.arch.lifecycle.Observer(body))
+    liveData.observe(this, Observer(body))
 }

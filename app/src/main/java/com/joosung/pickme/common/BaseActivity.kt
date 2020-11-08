@@ -1,6 +1,6 @@
 package com.joosung.pickme.common
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.joosung.pickme.R
 import io.reactivex.disposables.CompositeDisposable
 import java.util.ArrayList

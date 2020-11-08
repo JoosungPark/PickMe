@@ -53,10 +53,10 @@ abstract class BasePreferences(private val context: Context, private val name: S
     }
 
     protected fun getValue(key: String, defaultValue: String): String {
-        var result = defaultValue
+        val result: String
 
         synchronized(preferences) {
-            result = preferences.getString(key, defaultValue)
+            result = preferences.getString(key, defaultValue) ?: defaultValue
         }
 
         return result
@@ -103,10 +103,10 @@ abstract class BasePreferences(private val context: Context, private val name: S
     }
 
     protected fun getValue(key: String, defaultValue: MutableSet<String>): MutableSet<String> {
-        var result = defaultValue
+        val result: MutableSet<String>
 
         synchronized(preferences) {
-            result = preferences.getStringSet(key, defaultValue)
+            result = preferences.getStringSet(key, defaultValue) ?: defaultValue
         }
 
         return result

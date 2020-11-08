@@ -1,6 +1,6 @@
 package com.joosung.pickme.http.model
 
-import android.databinding.ObservableField
+import androidx.databinding.ObservableField
 import com.google.gson.Gson
 import com.google.gson.TypeAdapter
 import com.google.gson.TypeAdapterFactory

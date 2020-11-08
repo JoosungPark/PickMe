@@ -16,7 +16,7 @@
             type="com.joosung.pickme.ui.starred.StarredViewModel"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
@@ -24,7 +24,7 @@
         android:onLongClick="@{() -> viewModel.longTapMedia()}"
         android:scaleType="centerCrop">
 
-        <android.support.v7.widget.AppCompatCheckBox
+        <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/checked"
             android:layout_width="18dp"
             android:layout_height="18dp"
@@ -40,7 +40,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible"/>
 
-        <android.support.v7.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/media"
             android:layout_width="0dp"
             android:layout_height="120dp"
@@ -60,5 +60,5 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_height="120dp"/>
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

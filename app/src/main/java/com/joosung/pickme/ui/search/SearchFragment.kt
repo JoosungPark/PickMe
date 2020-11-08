@@ -1,11 +1,11 @@
 package com.joosung.pickme.ui.search
 
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.joosung.pickme.R
 import com.joosung.pickme.common.BaseFragment
 import com.joosung.pickme.common.ErrorCatchable

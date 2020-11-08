@@ -1,6 +1,6 @@
 package com.joosung.library.rx
 
-import android.databinding.ObservableField
+import androidx.databinding.ObservableField
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import io.reactivex.subjects.BehaviorSubject

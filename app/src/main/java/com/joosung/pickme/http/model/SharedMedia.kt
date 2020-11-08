@@ -1,7 +1,7 @@
 package com.joosung.pickme.http.model
 
-import android.databinding.BaseObservable
-import android.databinding.ObservableField
+import androidx.databinding.BaseObservable
+import androidx.databinding.ObservableField
 import com.google.gson.annotations.SerializedName
 import com.joosung.pickme.common.AppShared
 import com.joosung.pickme.model.AppJsonObject

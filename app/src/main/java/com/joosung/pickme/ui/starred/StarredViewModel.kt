@@ -1,6 +1,6 @@
 package com.joosung.pickme.ui.starred
 
-import android.databinding.ObservableField
+import androidx.databinding.ObservableField
 import com.joosung.library.rx.RxViewModel
 import com.joosung.library.rx.Variable
 import com.joosung.library.vm.SingleLiveEvent

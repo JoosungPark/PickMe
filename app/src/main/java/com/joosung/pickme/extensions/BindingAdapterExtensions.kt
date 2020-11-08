@@ -1,7 +1,7 @@
 package com.joosung.pickme.extensions
 
 import android.content.Context
-import android.databinding.BindingAdapter
+import androidx.databinding.BindingAdapter
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView

@@ -1,6 +1,6 @@
 package com.joosung.pickme.model
 
-import android.databinding.ObservableField
+import androidx.databinding.ObservableField
 import com.joosung.pickme.common.AppShared
 import com.joosung.imagelist.util.LogUtil
 import com.joosung.imagelist.util.Tag

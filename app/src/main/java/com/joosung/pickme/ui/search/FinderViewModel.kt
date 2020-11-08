@@ -1,7 +1,7 @@
 package com.joosung.pickme.ui.search
 
 import android.content.Context
-import android.databinding.ObservableField
+import androidx.databinding.ObservableField
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView

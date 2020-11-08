@@ -1,6 +1,6 @@
 package com.joosung.pickme.di
 
-import android.databinding.ObservableField
+import androidx.databinding.ObservableField
 import com.joosung.pickme.ui.home.HomeViewModel
 import com.joosung.library.rx.Variable
 import com.joosung.pickme.common.*
