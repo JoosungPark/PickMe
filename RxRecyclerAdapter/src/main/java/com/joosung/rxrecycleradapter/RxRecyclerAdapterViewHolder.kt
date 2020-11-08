@@ -21,4 +21,6 @@ abstract class RxRecyclerAdapterViewHolder<in D : RxRecyclerAdapterData>(itemVie
         dbag = CompositeDisposable()
         parentDisposable.add(dbag)
     }
+
+    open fun onViewRecycled() { }
 }

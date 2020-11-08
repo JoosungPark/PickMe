@@ -12,6 +12,10 @@ class RxRecyclerAdapter<D : RxRecyclerAdapterData> constructor(
 
     private var mDataSet: MutableList<D> = mutableListOf()
 
+    init {
+        setHasStableIds(true)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RxRecyclerAdapterViewHolder<D> = delegate.viewHolderForViewType(parent, viewType)
 
     override fun onBindViewHolder(holderRecycler: RxRecyclerAdapterViewHolder<D>, position: Int) {
@@ -61,7 +65,11 @@ class RxRecyclerAdapter<D : RxRecyclerAdapterData> constructor(
         }
     }
 
-    // FIXME: 임시
+    override fun onViewRecycled(holder: RxRecyclerAdapterViewHolder<D>) {
+        super.onViewRecycled(holder)
+        holder.onViewRecycled()
+    }
+
     interface Delegate<D : RxRecyclerAdapterData> {
         fun inflate(parent: ViewGroup, layoutResId: Int): View = LayoutInflater.from(parent.context).inflate(layoutResId, parent, false)
         fun getItemViewType(position: Int, item: D): Int
