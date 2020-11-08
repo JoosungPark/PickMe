@@ -14,6 +14,6 @@ interface ErrorCatchable {
     }
 
     fun handleError(context: Context?, throwable: Throwable) {
-        handleError(context, throwable.localizedMessage)
+        throwable.localizedMessage?.let { handleError(context, it) }
     }
 }

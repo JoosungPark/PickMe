@@ -68,10 +68,10 @@ class AppShared(config: AppConfig) : AppSharedInterface {
 
         realmConfig = builder.build()
 
-        RealmQueryBuilder(realm).queryMediaList()?.map { SharedMedia(it) }.also {
-            val list = ArrayList(it)
-            medias.update(list, this@AppShared)
-        }
+        RealmQueryBuilder(realm).queryMediaList()
+            ?.map { SharedMedia(it) }
+            ?.toMutableList()
+            ?.also { medias.update(it, this@AppShared) }
     }
 
     override fun observeMedia(url: MediaUrl): Observable<AppSharedMedia> = medias.observe(url)
